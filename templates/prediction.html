@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Post Analysis</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/prediction.css') }}">
+    <!-- Add these new styles after existing CSS links -->
+  
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <!-- Move the loading overlay to the end of the body, just before the closing body tag -->
+    </script>
+    <!-- Move loading overlay here -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Analyzing job posting...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <i class="fas fa-shield-alt"></i> Job Fraud Detector
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if session.get('username') %}
+                        <li class="nav-item">
+                            <span class="nav-link">
+                                <i class="fas fa-user"></i> {{ session.get('username') }}
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('logout') }}">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <h2 class="mb-4"><i class="fas fa-search"></i> Job Post Analysis</h2>
+        
+        <!-- Input Section -->
+        <div class="input-section mb-4">
+    <form id="analysisForm" method="POST" enctype="multipart/form-data">
+        <div class="d-flex gap-4">
+            <!-- Job Description Input -->
+            <div class="input-box flex-grow-1">
+                <h5><i class="fas fa-file-alt"></i> Text Input</h5>
+                <textarea class="form-control" id="job_description" name="job_description" 
+                        rows="5" placeholder="Paste job description here..." oninput="updateTextPreview()"></textarea>
+                
+            </div>
+
+            <!-- Image Upload Input -->
+            <div class="input-box flex-grow-1">
+                <h5><i class="fas fa-image"></i> Image Input</h5>
+                <input type="file" class="form-control" id="image" name="image" accept=".png,.jpg,.jpeg" onchange="previewImage(event)">
+                <small class="form-text text-muted">
+                    Supported formats: PNG, JPG, JPEG (max 16MB)
+                </small>
+               
+            </div>
+        </div>
+<!-- Text Input -->
+
+ 
+<p id="text_preview"></p>
+
+<!-- Image Input -->
+<img id="image_preview" style="max-width: 300px; display: none;"/>
+
+        <!-- Buttons -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Analyze
+            </button>
+            <button type="button" class="btn btn-secondary" id="resetBtn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+    </form>
+</div>
+
+
+        <!-- Results Section -->
+       <!-- prediction.html -->
+<!-- prediction.html -->
+<!-- prediction.html -->
+<!-- Analysis Results Section -->
+{% if result %}
+<div class="analysis-container">
+    <h2>Analysis Results</h2>
+    
+    <!-- Result Header -->
+    <div class="result-header">
+        {% if result == 'FAKE' %}
+            <span class="result-badge fake">❌ FAKE</span>
+        {% elif result == 'TEMPLATE' %}
+            <span class="result-badge template">📄 TEMPLATE</span>
+        {% else %}
+            <span class="result-badge real">✅ REAL</span>
+        {% endif %}
+    </div>
+
+    <!-- Suspicious Patterns -->
+    {% if flags_found %}
+    <div class="pattern-section">
+        <h3>⚠️ Suspicious Patterns Detected:</h3>
+        {% for category in flags_found %}
+            <div class="pattern-category">
+                <h4>{{ category|replace('_', ' ')|title }}:</h4>
+                <ul>
+                    {% for pattern in flag_details[category] %}
+                        <li>• {{ pattern }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Legitimate Indicators -->
+    {% if legitimate_indicators %}
+    <div class="pattern-section">
+        <h3>✅ Legitimate Indicators:</h3>
+        {% for category in legitimate_indicators %}
+            <div class="pattern-category">
+                <h4>{{ category|replace('_', ' ')|title }}:</h4>
+                <ul>
+                    {% for pattern in legitimate_details[category] %}
+                        <li>• {{ pattern }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Template Patterns -->
+    {% if result == 'TEMPLATE' and template_patterns %}
+    <div class="pattern-section">
+        <h3>📄 Template Patterns:</h3>
+        <ul>
+            {% for pattern in template_patterns %}
+                <li>• {{ pattern }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        document.getElementById('analysisForm').addEventListener('submit', function(e) {
+            const jobDescription = document.getElementById('job_description').value.trim();
+            const imageInput = document.getElementById('image');
+            
+            if (!jobDescription && !imageInput.files.length) {
+                e.preventDefault();
+                alert('Please provide either a job description or an image.');
+                return;
+            }
+            
+            document.getElementById('loadingOverlay').style.display = 'block';
+        });
+
+        document.getElementById('image').addEventListener('change', function() {
+            const fileSize = this.files[0]?.size || 0;
+            const maxSize = 16 * 1024 * 1024; // 16MB
+            
+            if (fileSize > maxSize) {
+                alert('File size exceeds 16MB limit. Please choose a smaller file.');
+                this.value = '';
+            }
+        });
+
+        document.getElementById('job_description').addEventListener('input', function() {
+            if (this.value.trim()) {
+                document.getElementById('image').value = '';
+            }
+        });
+
+        document.getElementById('image').addEventListener('change', function() {
+            if (this.files.length) {
+                document.getElementById('job_description').value = '';
+            }
+        });
+
+        window.addEventListener('load', function() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        });
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    showAlert('{{ message }}', '{{ category }}');
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        function showAlert(message, category) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${category} alert-dismissible fade show`;
+            alertDiv.role = 'alert';
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            const container = document.querySelector('.container');
+            container.insertBefore(alertDiv, container.firstChild);
+            
+            setTimeout(() => {
+                alertDiv.classList.remove('show');
+                setTimeout(() => alertDiv.remove(), 150);
+            }, 5000);
+        }
+
+function updateTextPreview() {
+    document.getElementById("text_preview").innerText = document.getElementById("job_description").value;
+}
+
+function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function () {
+        var output = document.getElementById("image_preview");
+        output.src = reader.result;
+        output.style.display = "block";
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+
+
+// Reset Button Functionality
+document.getElementById('resetBtn').addEventListener('click', function() {
+    document.getElementById('job_description').value = "";
+    document.getElementById('textPreview').textContent = "";
+    document.getElementById('image').value = "";
+    document.getElementById('imagePreview').style.display = 'none';
+});
+
+    </script>
+</body>
+</html>

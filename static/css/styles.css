@@ -1,0 +1,68 @@
+.analysis-container {
+    background-color: #1a1f36;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.analysis-container h2 {
+    margin-bottom: 20px;
+}
+
+.result-badge {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.pattern-section {
+    margin: 20px 0;
+}
+
+.pattern-section h3 {
+    margin-bottom: 15px;
+}
+
+.pattern-category {
+    margin: 15px 0;
+}
+
+.pattern-category h4 {
+    color: #a8b2d1;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 10px;
+}
+
+li {
+    margin: 5px 0;
+    color: #e2e8f0;
+}
+
+.explanation-text {
+    white-space: pre-line;
+    font-family: monospace;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.confidence-indicator {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.low-confidence {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+}

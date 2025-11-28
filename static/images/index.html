@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Job Post Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('background1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            color: white;
+        }
+        .hero {
+            padding: 50px 0;
+            text-align: center;
+        }
+        .section {
+            padding: 40px 20px;
+      
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .fake-email-img {
+            width: 100%;
+            height: 350px;
+            object-fit: contain;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+           
+        }
+        .email-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+        .content-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .content-section .images, .content-section .info {
+            flex: 1;
+            min-width: 300px;
+        }
+        .identification-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .identification-section img {
+            max-width: 50%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Fake Job Post Detection</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Welcome to Smart Detection of Fake Job Post</h1>
+            
+        </div>
+    </section>
+    
+    <!-- Identification Tips Section -->
+    <section class="section">
+        <div class="container identification-section">
+            <img src="doubt.jpg" alt="Identification Tips">
+            <div>
+                <h2>How to Identify Fake Job Posts</h2>
+                <ul>
+                    <li>Check the company website and verify job postings.</li>
+                    <li>Avoid jobs that ask for payments upfront.</li>
+                    <li>Research the recruiter’s LinkedIn profile.</li>
+                    <li>Be cautious of emails with poor grammar and urgent requests.</li>
+                    <li>Verify interview locations and ensure they match legitimate company offices.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Fake Emails Section -->
+    <section class="section">
+        <div class="container">
+            <h2>Fake job messages</h2>
+            <div class="email-row">
+                <img src="fakeemail.jpg" alt="Fake Email Example 1" class="fake-email-img">
+               
+                
+                <img src="fakeemail5.jpg" alt="Fake Email Example 4" class="fake-email-img">
+                <img src="fakeemail3.jpg" alt="Fake Email Example 3" class="fake-email-img">
+                <img src="fakeemail4.png" alt="Fake Email Example 4" class="fake-email-img">
+                <img src="fakeemail2.jpeg" alt="Fake Email Example 4" class="fake-email-img">
+
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center p-3">
+        <p>&copy; 2025 Fake Job Post Detection. All rights reserved.</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
